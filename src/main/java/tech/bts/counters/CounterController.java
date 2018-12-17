@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -32,5 +33,12 @@ public class CounterController {
         Template template = HandlebarsUtil.compile("counters");
 
         return template.apply(values);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/add")
+    public void addCounter(HttpServletResponse response) throws IOException {
+
+        counterService.addCounter();
+        response.sendRedirect("/");
     }
 }
