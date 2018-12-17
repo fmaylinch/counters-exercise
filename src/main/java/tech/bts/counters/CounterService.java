@@ -25,4 +25,10 @@ public class CounterService {
     public Collection<Counter> getAllCounters() {
         return counterMap.values();
     }
+
+    public void increment(int id, int amount) {
+
+        Counter counter = counterMap.get(id);
+        counter.incrementValue( amount );
+    }
 }

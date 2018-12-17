@@ -2,6 +2,7 @@ package tech.bts.counters;
 
 import com.github.jknack.handlebars.Template;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ public class CounterController {
         this.counterService = counterService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @RequestMapping(method = RequestMethod.GET)
     public String viewCounters() throws IOException {
 
         Collection<Counter> counters = counterService.getAllCounters();
@@ -39,6 +40,13 @@ public class CounterController {
     public void addCounter(HttpServletResponse response) throws IOException {
 
         counterService.addCounter();
+        response.sendRedirect("/");
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}/increment")
+    public void increment(HttpServletResponse response, @PathVariable int id) throws IOException {
+
+        counterService.increment(id, 1);
         response.sendRedirect("/");
     }
 }

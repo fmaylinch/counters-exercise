@@ -25,4 +25,8 @@ public class Counter {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public void incrementValue(int amount) {
+        this.value += amount;
+    }
 }
