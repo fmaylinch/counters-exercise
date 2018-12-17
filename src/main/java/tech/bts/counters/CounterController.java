@@ -28,7 +28,7 @@ public class CounterController {
         Collection<Counter> counters = counterService.getAllCounters();
 
         Map<String, Object> values = new HashMap<>();
-        values.put("value", counters.size());
+        values.put("counters", counters);
 
         Template template = HandlebarsUtil.compile("counters");
 

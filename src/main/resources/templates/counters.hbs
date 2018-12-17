@@ -1,6 +1,8 @@
 <p>
     <a href="/add">Add a counter</a>
 </p>
-<p>
-    Number of counters: <strong>{{value}}</strong>
-</p>
+<ul>
+{{#each counters}}
+    <li>Counter {{id}} has value {{value}}</li>
+{{/each}}
+</ul>
