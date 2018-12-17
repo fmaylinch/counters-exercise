@@ -2,10 +2,7 @@ package tech.bts.counters;
 
 import com.github.jknack.handlebars.Template;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +20,7 @@ public class CounterController {
         this.counterService = counterService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping()
     public String viewCounters() throws IOException {
 
         Collection<Counter> counters = counterService.getAllCounters();
@@ -36,17 +33,26 @@ public class CounterController {
         return template.apply(values);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/add")
+    @GetMapping(path = "/add")
     public void addCounter(HttpServletResponse response) throws IOException {
 
         counterService.addCounter();
         response.sendRedirect("/");
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{id}/increment")
+    @GetMapping(path = "/{id}/increment")
     public void increment(HttpServletResponse response, @PathVariable int id) throws IOException {
 
         counterService.increment(id, 1);
         response.sendRedirect("/");
+    }
+
+
+    // API end-point example
+
+    @GetMapping(path = "/api/counters")
+    public Collection<Counter> getCounters() {
+
+        return counterService.getAllCounters();
     }
 }

@@ -10,6 +10,10 @@ public class Counter {
         this.value = 0;
     }
 
+    public String getMessage() {
+        return "I'm the counter " + id + " with value " + value;
+    }
+
     public int getId() {
         return id;
     }
